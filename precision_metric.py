@@ -11,7 +11,7 @@ def precision(y_true, y_pred):
         if y_pred[i] == 1 and y_pred[i] != y_true[i]:
             FP += 1
 
-    return TP / TP + FP
+    return TP / (TP + FP)
 
 y_true = np.array([1, 0, 1, 1, 0, 1])
 y_pred = np.array([1, 0, 1, 0, 0, 1])
