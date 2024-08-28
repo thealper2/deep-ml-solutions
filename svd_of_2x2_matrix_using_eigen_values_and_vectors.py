@@ -15,8 +15,8 @@ def svd_2x2(A: np.ndarray) -> tuple:
     U = U[:, idx_U]
     
     singular_values = np.sqrt(np.abs(eigenvalues_V[idx_V]))
-    print(U @ np.diag(singular_values) @ V.T)
-    return U.tolist(), singular_values.tolist(), V.T.tolist()
+    #result = U @ np.diag(singular_values) @ V
+    return U.tolist(), singular_values.tolist(), V.tolist()
 
 A = [[-10, 8],
 	 [10, -1]]
