@@ -1,22 +1,14 @@
 import numpy as np
 
 def svd_2x2(A: np.ndarray) -> tuple:
-    A = np.array(list(A))
-    AtA = np.dot(A.T, A)
-    AAt = np.dot(A, A.T)
-
-    eigenvalues_V, V = np.linalg.eigh(AtA)
-    eigenvalues_U, U = np.linalg.eigh(AAt)
-
-    idx_V = np.argsort(eigenvalues_V)[::-1]
-    idx_U = np.argsort(eigenvalues_U)[::-1]
-
-    V = V[:, idx_V]
-    U = U[:, idx_U]
-    
-    singular_values = np.sqrt(np.abs(eigenvalues_V[idx_V]))
-    #result = U @ np.diag(singular_values) @ V
-    return U.tolist(), singular_values.tolist(), V.tolist()
+    ATA = A.T @ A
+    eigvals_V, V = np.linalg.eig(ATA)
+    s = np.sqrt(eigvals_V)
+    sort_indices = np.argsort(-s)
+    s = s[sort_indices]
+    V = V[:, sort_indices]
+    U = A @ V / s
+    return U, s, V.T
 
 A = [[-10, 8],
 	 [10, -1]]
