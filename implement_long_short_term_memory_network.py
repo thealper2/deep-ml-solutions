@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class LSTM:
     def __init__(self, input_size, hidden_size):
         self.input_size = input_size
@@ -40,5 +41,5 @@ class LSTM:
             h = o * self.tanh(c)
 
             outputs.append(h)
-        
+
         return np.array(outputs), h, c

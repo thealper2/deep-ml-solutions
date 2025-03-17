@@ -1,4 +1,4 @@
-def transpose_matrix(a: list[list[int|float]]) -> list[list[int|float]]:
+def transpose_matrix(a: list[list[int | float]]) -> list[list[int | float]]:
     b = []
     row_len = len(a[0])
     col_len = len(a)
@@ -11,6 +11,7 @@ def transpose_matrix(a: list[list[int|float]]) -> list[list[int|float]]:
         b.append(c)
     return b
 
-a = [[1,2,3],[4,5,6]]
+
+a = [[1, 2, 3], [4, 5, 6]]
 b = transpose_matrix(a)
 print(b)

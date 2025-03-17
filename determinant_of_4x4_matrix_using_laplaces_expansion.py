@@ -1,4 +1,4 @@
-def determinant_4x4(matrix: list[list[int|float]]) -> float:
+def determinant_4x4(matrix: list[list[int | float]]) -> float:
     a = matrix[0][0]
     b = matrix[0][1]
     c = matrix[0][2]
@@ -16,13 +16,44 @@ def determinant_4x4(matrix: list[list[int|float]]) -> float:
     o = matrix[3][2]
     p = matrix[3][3]
 
-    det = (a * ((f * ((k * p) - (l * o))) - (g * ((j * p) - (l * n))) + (h * ((j * o) - (k * n))))) \
-        - (b * ((e * ((k * p) - (l * o))) - (g * ((i * p) - (l * m))) + (h * ((i * o) - (k * m))))) \
-        + (c * ((e * ((j * p) - (l * n))) - (f * ((i * p) - (l * m))) + (h * ((i * n) - (j * m))))) \
-        - (d * ((e * ((j * o) - (k * n))) - (f * ((i * o) - (k * m))) + (g * ((i * n) - (j * m)))))
+    det = (
+        (
+            a
+            * (
+                (f * ((k * p) - (l * o)))
+                - (g * ((j * p) - (l * n)))
+                + (h * ((j * o) - (k * n)))
+            )
+        )
+        - (
+            b
+            * (
+                (e * ((k * p) - (l * o)))
+                - (g * ((i * p) - (l * m)))
+                + (h * ((i * o) - (k * m)))
+            )
+        )
+        + (
+            c
+            * (
+                (e * ((j * p) - (l * n)))
+                - (f * ((i * p) - (l * m)))
+                + (h * ((i * n) - (j * m)))
+            )
+        )
+        - (
+            d
+            * (
+                (e * ((j * o) - (k * n)))
+                - (f * ((i * o) - (k * m)))
+                + (g * ((i * n) - (j * m)))
+            )
+        )
+    )
 
     return det
 
-matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+
+matrix = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
 result = determinant_4x4(matrix)
 print(result)

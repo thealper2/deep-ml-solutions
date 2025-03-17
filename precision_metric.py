@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def precision(y_true, y_pred):
     TP = 0
     FP = 0
@@ -12,6 +13,7 @@ def precision(y_true, y_pred):
             FP += 1
 
     return TP / (TP + FP)
+
 
 y_true = np.array([1, 0, 1, 1, 0, 1])
 y_pred = np.array([1, 0, 1, 0, 0, 1])

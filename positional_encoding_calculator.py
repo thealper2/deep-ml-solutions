@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def pos_encoding(position: int, d_model: int):
     if position == 0 or d_model <= 0:
         return -1
@@ -12,5 +13,6 @@ def pos_encoding(position: int, d_model: int):
     pos_encoding = np.concatenate([sine, cosine], axis=-1)
     pos_encoding = pos_encoding[np.newaxis, :]
     return np.float16(pos_encoding)
+
 
 print(pos_encoding(2, 8))

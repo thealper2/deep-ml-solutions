@@ -1,6 +1,7 @@
-import numpy as np 
+import numpy as np
 
-def pca(data: np.ndarray, k: int) -> list[list[int|float]]:
+
+def pca(data: np.ndarray, k: int) -> list[list[int | float]]:
     mean = sum(data) / len(data)
     std = (sum((i - mean) ** 2 for i in data) / len(data)) ** 0.5
     X_std = (data - mean) / std
@@ -8,11 +9,10 @@ def pca(data: np.ndarray, k: int) -> list[list[int|float]]:
     eigen_vals, eigen_vecs = np.linalg.eig(cov_mat)
     idx = eigen_vals.argsort()[::-1]
     eigen_vals = eigen_vals[idx]
-    eigen_vecs = eigen_vecs[:,idx]
+    eigen_vecs = eigen_vecs[:, idx]
 
     principal_components = eigen_vecs[:, :k].tolist()
     return np.round(principal_components, 4)
-    
 
 
 data = np.array([[1, 2], [3, 4], [5, 6]])

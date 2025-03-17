@@ -1,6 +1,7 @@
 import numpy as np
 from itertools import combinations_with_replacement
 
+
 def polynomial_features(X, degree):
     n_samples, n_features = X.shape
 
@@ -16,9 +17,8 @@ def polynomial_features(X, degree):
 
     return new_features
 
-X = np.array([
-    [2, 3], [3, 4], [5, 6]
-])
+
+X = np.array([[2, 3], [3, 4], [5, 6]])
 degree = 2
 output = polynomial_features(X, degree)
 print(output)

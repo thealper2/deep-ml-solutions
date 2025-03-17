@@ -1,4 +1,5 @@
-import numpy as np 
+import numpy as np
+
 
 def svd_2x2_singular_values(A: np.ndarray) -> tuple:
     A = np.array(A)

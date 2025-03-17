@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def svd_2x2(A: np.ndarray) -> tuple:
     ATA = A.T @ A
     eigvals_V, V = np.linalg.eig(ATA)
@@ -10,8 +11,8 @@ def svd_2x2(A: np.ndarray) -> tuple:
     U = A @ V / s
     return U, s, V.T
 
-A = [[-10, 8],
-	 [10, -1]]
+
+A = [[-10, 8], [10, -1]]
 
 U, Sigma, Vt = svd_2x2(A)
 print(U)

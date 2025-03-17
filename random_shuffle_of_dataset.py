@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def shuffle_data(X, y, seed=None):
     if seed:
         np.random.seed(seed)
@@ -11,14 +12,9 @@ def shuffle_data(X, y, seed=None):
     return X, y
 
 
-X = np.array([
-    [1, 2], [3, 4],
-    [5, 6], [7, 8]
-])
+X = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
 
-y = np.array([
-    1, 2, 3 ,4
-])
+y = np.array([1, 2, 3, 4])
 
 X, y = shuffle_data(X, y, seed=1)
 print(X)

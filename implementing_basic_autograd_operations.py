@@ -1,5 +1,5 @@
 class Value:
-    def __init__(self, data, _children=(), _op=''):
+    def __init__(self, data, _children=(), _op=""):
         self.data = data
         self.grad = 0
         self._backward = lambda: None
@@ -11,7 +11,7 @@ class Value:
 
     def __add__(self, other):
         other = other if isinstance(other, Value) else Value(other)
-        
+
         out = Value(self.data + other.data, (self, other), "+")
 
         def _backward():
@@ -60,7 +60,8 @@ class Value:
 
         for node in reversed(topo):
             node._backward()
-	
+
+
 a = Value(2)
 b = Value(-3)
 c = Value(10)

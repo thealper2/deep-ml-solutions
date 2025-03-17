@@ -1,6 +1,9 @@
 import numpy as np
 
-def linear_regression_gradient_descent(X: np.ndarray, y: np.ndarray, alpha: float, iterations: int) -> np.ndarray:
+
+def linear_regression_gradient_descent(
+    X: np.ndarray, y: np.ndarray, alpha: float, iterations: int
+) -> np.ndarray:
     m, n = X.shape
     theta = np.zeros(n)
 
@@ -16,6 +19,7 @@ def linear_regression_gradient_descent(X: np.ndarray, y: np.ndarray, alpha: floa
         theta -= alpha * gradients
 
     return np.round(theta, 4)
+
 
 X = np.array([[1, 1], [1, 2], [1, 3]])
 y = np.array([1, 2, 3])

@@ -1,5 +1,6 @@
 import math
 
+
 def softmax(scores: list[float]) -> list[float]:
     probabilities = []
 
@@ -8,6 +9,7 @@ def softmax(scores: list[float]) -> list[float]:
         prob = round(prob, 4)
         probabilities.append(prob)
     return probabilities
+
 
 scores = [1, 2, 3]
 probabilities = softmax(scores)

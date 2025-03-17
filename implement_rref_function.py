@@ -1,9 +1,10 @@
 import numpy as np
 
+
 def rref(matrix):
     A = matrix.astype(np.float32)
     n, m = A.shape
-    
+
     for i in range(n):
         if A[i, i] == 0:
             for k in range(i + 1, n):
@@ -21,11 +22,8 @@ def rref(matrix):
 
     return A.tolist()
 
-matrix = np.array([
-    [1, 2, -1, -4],
-    [2, 3, -1, -11],
-    [-2, 0, -3, 22]
-])
+
+matrix = np.array([[1, 2, -1, -4], [2, 3, -1, -11], [-2, 0, -3, 22]])
 
 rref_matrix = rref(matrix)
 print(rref_matrix)

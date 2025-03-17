@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def compressed_row_sparse_matrix(dense_matrix):
     vals = []
     col_idx = []
@@ -15,12 +16,8 @@ def compressed_row_sparse_matrix(dense_matrix):
 
     return vals, col_idx, row_ptr
 
-dense_matrix = [
-    [1, 0, 0, 0],
-    [0, 2, 0, 0],
-    [3, 0, 4, 0],
-    [1, 0, 0, 5]
-]
+
+dense_matrix = [[1, 0, 0, 0], [0, 2, 0, 0], [3, 0, 4, 0], [1, 0, 0, 5]]
 
 vals, col_idx, row_ptr = compressed_row_sparse_matrix(dense_matrix)
 print("Values array:", vals)

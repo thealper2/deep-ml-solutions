@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def create_row_hv(row, dim, random_seeds):
     hvs = []
     for col, seed in random_seeds.items():
@@ -11,6 +12,7 @@ def create_row_hv(row, dim, random_seeds):
 
     bundled = np.sum(hvs, axis=0)
     return np.where(bundled >= 0, 1, -1)
+
 
 row = {"FeatureA": "value1", "FeatureB": "value2"}
 dim = 5

@@ -5,5 +5,6 @@ def hard_sigmoid(x: float) -> float:
     else:
         return result
 
+
 result = hard_sigmoid(3.0)
 print(result)
