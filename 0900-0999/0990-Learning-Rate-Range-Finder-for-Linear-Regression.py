@@ -23,6 +23,6 @@ def lr_range_finder(X, y, w0, a, b, n_steps):
 
         pred = X @ weights
         loss = np.mean((pred - y) ** 2)
-        losses.append(loss)
+        losses.append(float(loss)
 
     return losses
