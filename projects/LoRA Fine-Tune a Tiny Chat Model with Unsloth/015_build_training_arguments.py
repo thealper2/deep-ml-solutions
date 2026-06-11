@@ -15,4 +15,7 @@ def build_training_arguments(output_dir='./sft_out', max_steps=5, learning_rate=
         fp16=not use_bf16,
         logging_steps=1,
         optim='adamw_8bit',
+        save_strategy='no',
+        save_only_model=False,
+        ddp_find_unused_parameters=False,
     )
