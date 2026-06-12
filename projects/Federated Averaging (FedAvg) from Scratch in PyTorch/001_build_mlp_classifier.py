@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 def build_mlp_classifier(input_size, hidden_size, num_classes):
-    class MLP(nn.Module):
+    class _MLPClassifier(nn.Module):
         def __init__(self, input_size, hidden_size, num_classes):
             super().__init__()
             self.fc1 = nn.Linear(input_size, hidden_size)
@@ -16,4 +16,4 @@ def build_mlp_classifier(input_size, hidden_size, num_classes):
             x = self.fc2(x)
             return x
     
-    return MLP(input_size, hidden_size, num_classes)
+    return _MLPClassifier(input_size, hidden_size, num_classes)
