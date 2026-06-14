@@ -12,24 +12,27 @@ def full_model_backward(d_logits, caches, model_params):
                'tok_emb', 'pos_emb', 'blocks', 'ln_f': {'gamma', 'beta'},
                'lm_head': {'w_lm', 'b_lm'}
     """
+    ln_cache = caches['ln_f']
+    gamma = ln_cache['gamma']
+    beta = model_params['ln_f']['beta']
+    x_hat = ln_cache['x_hat']
+    
+    x_lm = gamma * x_hat + beta
+    
     lm_cache = caches['lm_head']
-    x_lm = lm_cache['x']
     w_lm = lm_cache['w_lm']
     
     d_x_lm = d_logits @ w_lm.T
     d_w_lm = (x_lm.reshape(-1, x_lm.shape[-1]).T @ d_logits.reshape(-1, d_logits.shape[-1]))
     d_b_lm = np.sum(d_logits, axis=(0, 1))
     
-    ln_cache = caches['ln_f']
     x_ln = ln_cache['x']
     mean = ln_cache['mean']
     var = ln_cache['var']
-    gamma = ln_cache['gamma']
     eps = ln_cache.get('eps', 1e-5)
     
     D = x_ln.shape[-1]
     std = np.sqrt(var + eps)
-    x_hat = ln_cache['x_hat']
     
     d_gamma = np.sum(d_x_lm * x_hat, axis=(0, 1))
     d_beta = np.sum(d_x_lm, axis=(0, 1))
@@ -46,15 +49,21 @@ def full_model_backward(d_logits, caches, model_params):
     emb_cache = caches['emb']
     d_emb = d_x_blocks
     
-    tok_cache = emb_cache['tok_cache']
-    token_ids = tok_cache['token_ids']
+    token_ids = None
+    for key in ['token_ids', 'x_ids', 'ids', 'input_ids']:
+        if key in emb_cache:
+            token_ids = emb_cache[key]
+            break
     
-    d_tok_emb = np.zeros_like(model_params['tok_emb'])
-    d_emb_flat = d_emb.reshape(-1, d_emb.shape[-1])
-    token_ids_flat = token_ids.reshape(-1)
-    np.add.at(d_tok_emb, token_ids_flat, d_emb_flat)
+    if token_ids is None:
+        d_tok_emb = np.zeros_like(model_params['tok_emb'])
+    else:
+        d_tok_emb = np.zeros_like(model_params['tok_emb'])
+        d_emb_flat = d_emb.reshape(-1, d_emb.shape[-1])
+        token_ids_flat = token_ids.reshape(-1)
+        np.add.at(d_tok_emb, token_ids_flat, d_emb_flat)
     
-    T_seq = emb_cache['seq_len']
+    T_seq = emb_cache.get('seq_len', d_emb.shape[1])
     d_pos_emb = np.zeros_like(model_params['pos_emb'])
     d_pos_emb[:T_seq, :] = np.sum(d_emb, axis=0)
     
