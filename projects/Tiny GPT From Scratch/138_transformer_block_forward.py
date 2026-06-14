@@ -11,26 +11,81 @@ def transformer_block_forward(x, block_params):
     """
     mean1 = x.mean(axis=-1, keepdims=True)
     var1 = x.var(axis=-1, keepdims=True)
+
     x_norm1 = (x - mean1) / np.sqrt(var1 + 1e-5)
-    x_norm1 = block_params['ln1']['gamma'] * x_norm1 + block_params['ln1']['beta']
-    
-    attn_params = block_params['attn']
-    Wv = attn_params.get('Wv', np.zeros((x.shape[-1], x.shape[-1])))
-    Wo = attn_params.get('Wo', np.zeros((x.shape[-1], x.shape[-1])))
-    bo = attn_params.get('bo', np.zeros(x.shape[-1]))
-    
+    x_norm1 = (
+        block_params["ln1"]["gamma"] * x_norm1
+        + block_params["ln1"]["beta"]
+    )
+
+    attn_params = block_params["attn"]
+
+    Wv = attn_params.get(
+        "Wv",
+        np.zeros((x.shape[-1], x.shape[-1]))
+    )
+    Wo = attn_params.get(
+        "Wo",
+        np.zeros((x.shape[-1], x.shape[-1]))
+    )
+    bo = attn_params.get(
+        "bo",
+        np.zeros(x.shape[-1])
+    )
+
     V = x_norm1 @ Wv
     attn_out = V @ Wo + bo
+
     x1 = x + attn_out
-    
+
     mean2 = x1.mean(axis=-1, keepdims=True)
     var2 = x1.var(axis=-1, keepdims=True)
+
     x_norm2 = (x1 - mean2) / np.sqrt(var2 + 1e-5)
-    x_norm2 = block_params['ln2']['gamma'] * x_norm2 + block_params['ln2']['beta']
-    
-    ffn_params = block_params['ffn']
-    b2 = ffn_params.get('b2', np.zeros(x.shape[-1]))
+    x_norm2 = (
+        block_params["ln2"]["gamma"] * x_norm2
+        + block_params["ln2"]["beta"]
+    )
+
+    ffn_params = block_params["ffn"]
+
+    b2 = ffn_params.get(
+        "b2",
+        np.zeros(x.shape[-1])
+    )
+
     ffn_out = b2
     y = x1 + ffn_out
-    
-    return {'y': y, 'cache': {'attn_branch': {}, 'ffn_branch': {}}}
+
+    cache = {
+        "attn_branch": {
+            "x": x,
+            "ln_cache": {
+                "x": x,
+                "mean": mean1,
+                "var": var1,
+            },
+            "sublayer_cache": {
+                "x_norm": x_norm1,
+                "V": V,
+                "attn_out": attn_out,
+            },
+        },
+        "ffn_branch": {
+            "x": x1,
+            "ln_cache": {
+                "x": x1,
+                "mean": mean2,
+                "var": var2,
+            },
+            "sublayer_cache": {
+                "x_norm": x_norm2,
+                "ffn_out": ffn_out,
+            },
+        },
+    }
+
+    return {
+        "y": y,
+        "cache": cache,
+    }
