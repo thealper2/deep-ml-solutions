@@ -7,7 +7,7 @@ def im2col(images, kernel_h, kernel_w, stride, padding):
 
     patch_size = C * kernel_h * kernel_w
     num_patches = N * H_out * W_out
-    patches = np.zeros((num_patches, patch_size), dtype=int)
+    patches = np.zeros((num_patches, patch_size), dtype=images.dtype)
 
     patch_idx = 0
     for n in range(N):
