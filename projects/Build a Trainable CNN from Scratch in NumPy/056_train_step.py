@@ -27,4 +27,4 @@ def train_step(params, opt_state, xb, yb, lr, beta_one, beta_two, eps, step):
             new_params[layer_name][param_name] = new_param
             new_opt_state[layer_name][param_name] = {'m': new_m, 'v': new_v}
     
-    return new_params, new_opt_state, loss
+    return new_params, new_opt_state, float(loss)
