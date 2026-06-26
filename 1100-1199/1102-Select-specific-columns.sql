@@ -1,0 +1,1 @@
+SELECT NAME, SALARY FROM employees
