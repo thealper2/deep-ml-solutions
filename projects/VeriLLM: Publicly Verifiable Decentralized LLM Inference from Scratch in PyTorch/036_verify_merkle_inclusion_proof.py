@@ -4,9 +4,8 @@ def verify_merkle_inclusion_proof(leaf, leaf_index, proof, root):
 
     for entry in proof:
         sibling = entry['sibling']
-        side = entry['side']
 
-        if side == 'right':
+        if entry.get('is_right', entry.get('side')) == 'right' or entry.get('is_right') == True:
             combined = current + sibling
         else:
             combined = sibling + current
