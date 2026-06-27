@@ -10,13 +10,15 @@ def merkle_inclusion_proof(tree, leaf_index):
             else:
                 sibling = nodes[idx]
             
+            side = 'right'
             is_right = True
 
         else:
             sibling = nodes[idx - 1]
             is_right = False
+            side = 'left'
 
-        proof.append({'sibling': sibling, 'is_right': is_right})
+        proof.append({'sibling': sibling, 'is_right': is_right, 'side': side})
         idx = idx // 2
 
     return proof
