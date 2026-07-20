@@ -3,7 +3,7 @@ def train_linear_probe(embeddings: torch.Tensor, states: torch.Tensor, probe_par
     b = probe_params['b'].clone().detach().requires_grad_(True)
 
     for _ in range(num_steps):
-        pred = embeddings @ w.T + b
+        pred = embeddings @ w + b
         loss = torch.mean((pred - states) ** 2)
         loss.backward()
 
