@@ -27,7 +27,7 @@ def track_rewards_and_optimal_actions(true_values, n_steps, epsilon, rng):
             action = int(np.argmax(q_values))
 
         reward = rng.normal(loc=true_values[action], scale=1.0)
-        q_values, action_values = sample_average_update(q_values, action_counts, action, reward)
+        q_values, action_counts = sample_average_update(q_values, action_counts, action, reward)
         rewards[step] = reward
         optimal_flags[step]= 1.0 if action == optimal_arm else 0.0
 
