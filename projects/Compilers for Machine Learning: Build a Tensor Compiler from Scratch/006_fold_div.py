@@ -41,20 +41,17 @@ def fold_div(x, c):
     c = c.arg if c.op is Ops.CONST else None
     if c is None or c <= 0:
         return None
-
     terms = _terms(x)
     divisible = []
     rest = []
     for t in terms:
         base, k = _factor(t)
-        if base is not None and k % c == 0:
+        if k % c == 0:
             divisible.append((base, k // c))
         else:
             rest.append(t)
-
     R = _sum(rest, x.dtype)
     rmin, rmax = bounds(R)
-
     if not divisible:
         if len(terms) == 1:
             base, k = _factor(terms[0])
@@ -63,17 +60,13 @@ def fold_div(x, c):
         if 0 <= rmin and rmax < c:
             return UOp.const(x.dtype, 0)
         return None
-
     quot = _rebuild(divisible, x.dtype)
-
     if 0 <= rmin and rmax < c:
         return quot
-
     if R.op is Ops.CONST:
         q = UOp.const(x.dtype, R.arg // c)
     else:
         q = R // UOp.const(x.dtype, c)
-
     if quot.op is Ops.CONST and quot.arg == 0:
         return q
     if q.op is Ops.CONST and q.arg == 0:
@@ -85,17 +78,15 @@ def fold_mod(x, c):
     c = c.arg if c.op is Ops.CONST else None
     if c is None or c <= 0:
         return None
-
     terms = _terms(x)
     kept = []
     dropped = False
     for t in terms:
         base, k = _factor(t)
-        if base is not None and k % c == 0:
+        if k % c == 0:
             dropped = True
         else:
             kept.append(t)
-
     R = _sum(kept, x.dtype)
     rmin, rmax = bounds(R)
     if 0 <= rmin and rmax < c:
