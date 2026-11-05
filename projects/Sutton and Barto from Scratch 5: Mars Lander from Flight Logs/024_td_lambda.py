@@ -1,3 +1,7 @@
+import numpy as np
+
+
+def td_lambda(X, X_next, rewards, dones, alpha, lam, true_online=False, gamma=1.0):
     X = np.asarray(X, dtype=float)
     X_next = np.asarray(X_next, dtype=float)
     rewards = np.asarray(rewards, dtype=float)
