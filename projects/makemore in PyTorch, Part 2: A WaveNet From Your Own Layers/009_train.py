@@ -27,7 +27,10 @@ def train(model, X, Y, steps, batch_size=32, lr=0.1, seed=0):
                 if p.ndim == 2:
                     upd = (cur_lr * p.grad).std().item()
                     wstd = p.data.std().item()
-                    row.append(math.log10(upd / wstd))
+                    if upd > 0 and wstd > 0:
+                        row.append(math.log10(upd / wstd))
+                    else:
+                        row.append(float("-inf"))
         losses.append(float(loss.item()))
         ud.append(row)
     return losses, ud
