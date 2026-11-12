@@ -13,7 +13,7 @@ class Tanh:
 def activation_stats(t, threshold=0.97):
     """{'mean': float, 'std': float, 'saturated': percent of |t| > threshold}."""
     total = t.numel()
-    saturated = float((t.abs() > threshold).sum().item()) / total * 1000.0
+    saturated = float((t.abs() > threshold).sum().item()) / total * 100.0
     return {
         'mean': float(t.mean().item()),
         'std': float(t.std().item()),
