@@ -22,6 +22,6 @@ def make_demos(n, seed, length=4, p_copy=0.6, p_typo=0.05):
     demos = []
     for _ in range(n):
         prompt = "".join(LETTERS[rng.randrange(len(LETTERS))] for _ in range(length))
-        completion = write_answer(prompt, rag, p_copy, p_typo)
+        completion = write_answer(prompt, rng, p_copy, p_typo)
         demos.append((prompt, completion))
     return demos
