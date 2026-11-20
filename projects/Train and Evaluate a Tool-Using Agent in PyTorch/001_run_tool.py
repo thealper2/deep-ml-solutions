@@ -100,17 +100,19 @@ def run_tool(name, args, store):
             if len(args) != 3:
                 return "error"
             a, op, b = args
-            if not (isinstance(a, str) and a.isdigit() and isinstance(b, str) and b.isdigit()):
+            if not (isinstance(a, str) and isinstance(b, str)):
                 return "error"
-            if op not in ("+", "-", "*"):
+            if not a.isdigit() or not b.isdigit():
                 return "error"
             x, y = int(a), int(b)
             if op == "+":
                 return str(x + y)
-            if op == "-":
+            elif op == "-":
                 return str(x - y)
-            return str(x - y)
-        if name == "lookup":
+            elif op == "*":
+                return str(x * y)
+            return "error"
+        elif name == "lookup":
             if len(args) != 1:
                 return "error"
             key = args[0]
